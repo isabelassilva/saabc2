@@ -60,6 +60,19 @@ def iterate(event):
     novo = 0 if novo == 4 else novo
     combobox.current(novo)
 
+
+def select(event):
+    aba = combobox.current()
+    #aba = notebook.index(notebook.select())
+    if aba == 0:
+        print("Ouvir novamente as instruções de uso")
+    elif aba == 1:
+        notebook.select(1)
+    elif aba == 2:
+        notebook.select(2)
+    elif aba == 3:
+        notebook.select(3)
+
 w = 15
 
 combobox = ttk.Combobox(aba1, width=w, state='readonly', font=f)
@@ -74,6 +87,8 @@ combobox.pack(expand=1)
 combobox.current(0)
 
 aba1.bind_all('<space>', iterate)
+
+aba1.bind_all('<Return>', select)
 
 # endregion
 
