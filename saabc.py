@@ -53,6 +53,13 @@ notebook.add(aba4, text="         Aba de Palavras       ")
 
 # region Aba Inicial
 
+
+def iterate(event):
+    atual = combobox.current()
+    novo = atual+1
+    novo = 0 if novo == 4 else novo
+    combobox.current(novo)
+
 w = 15
 
 combobox = ttk.Combobox(aba1, width=w, state='readonly', font=f)
@@ -65,6 +72,8 @@ combobox['values'] = ('ABA INICIAL',
 combobox.pack(expand=1)
 
 combobox.current(0)
+
+aba1.bind_all('<space>', iterate)
 
 # endregion
 
