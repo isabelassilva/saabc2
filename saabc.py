@@ -18,6 +18,13 @@ window.resizable(0, 0)
 
 # endregion
 
+# region :: Configuraçao de Fontes
+
+fontsize = 40
+f = ("Times News Roman", fontsize)
+
+# endregion
+
 # region Frame de Abas
 
 notebook = ttk.Notebook(window)
@@ -41,6 +48,23 @@ notebook.pack(fill="both", expand=1)
 aba4 = ttk.Frame(notebook)
 
 notebook.add(aba4, text="         Aba de Palavras       ")
+
+# endregion
+
+# region Aba Inicial
+
+w = 15
+
+combobox = ttk.Combobox(aba1, width=w, state='readonly', font=f)
+
+combobox['values'] = ('ABA INICIAL',
+                    'ABA DE LETRAS',
+                    'ABA DE SÍLABAS',
+                    'ABA DE PALAVRAS')
+
+combobox.pack(expand=1)
+
+combobox.current(0)
 
 # endregion
 
