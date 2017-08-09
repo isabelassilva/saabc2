@@ -25,7 +25,7 @@ f = ("Times News Roman", fontsize)
 
 # endregion
 
-# region Frame de Abas
+# region :: Frame de Abas
 
 notebook = ttk.Notebook(window)
 
@@ -51,10 +51,10 @@ notebook.add(aba4, text="         Aba de Palavras       ")
 
 # endregion
 
-# region Aba Inicial
+# region :: Aba Inicial
 
 
-def iterate(event):
+def iterate():
     atual = combobox.current()
     novo = atual+1
     novo = 0 if novo == 4 else novo
@@ -62,16 +62,12 @@ def iterate(event):
 
 
 def select(event):
-    aba = combobox.current()
-    #aba = notebook.index(notebook.select())
-    if aba == 0:
+    option = combobox.current()
+
+    if option == 0:
         print("Ouvir novamente as instruções de uso")
-    elif aba == 1:
-        notebook.select(1)
-    elif aba == 2:
-        notebook.select(2)
-    elif aba == 3:
-        notebook.select(3)
+    else:
+        notebook.select(option)
 
 w = 15
 
@@ -86,7 +82,21 @@ combobox.pack(expand=1)
 
 combobox.current(0)
 
-aba1.bind_all('<space>', iterate)
+# endregion
+
+# region :: Binds
+
+
+def escape():
+    notebook.select(0)
+
+
+def space(event):
+    aba = notebook.index(notebook.select())
+    iterate() if aba == 0 else escape()
+
+
+window.bind('<space>', space)
 
 aba1.bind_all('<Return>', select)
 
