@@ -97,8 +97,12 @@ def key(event):
     aba = notebook.index(notebook.select())
     if aba == 1:
         if event.char == event.keysym:
-            mixer.music.load('./mp3/' + event.char.upper() + '_pt-br.mp3')
-            mixer.music.play()
+            if event.char in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
+                mixer.music.load('./mp3/PK_pt-br.mp3')
+                mixer.music.play()  
+            else:
+                mixer.music.load('./mp3/' + event.char.upper() + '_pt-br.mp3')
+                mixer.music.play()
         else:
             mixer.music.load('./mp3/PK_pt-br.mp3')
             mixer.music.play()
