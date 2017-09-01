@@ -84,6 +84,27 @@ combobox.current(0)
 
 # endregion
 
+import pygame.mixer
+
+mixer = pygame.mixer
+
+mixer.init()
+
+# region Aba de Letras
+
+
+def key(event):
+    aba = notebook.index(notebook.select())
+    if aba == 1:
+        if event.char == event.keysym:
+            mixer.music.load('./mp3/' + event.char.upper() + '_pt-br.mp3')
+            mixer.music.play()
+        else:
+            mixer.music.load('./mp3/PK_pt-br.mp3')
+            mixer.music.play()
+
+# end region
+
 # region :: Binds
 
 
@@ -99,6 +120,8 @@ def space(event):
 window.bind('<space>', space)
 
 aba1.bind_all('<Return>', select)
+
+aba2.bind_all('<Key>', key)
 
 # endregion
 
