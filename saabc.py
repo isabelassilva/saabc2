@@ -68,6 +68,8 @@ def select():
         print("Ouvir novamente as instruções de uso")
     else:
         notebook.select(option)
+        if option == 2:
+            entry.set('')
 
 w = 15
 
@@ -124,8 +126,8 @@ alphabet = consonant + vowel
 
 
 def syllable():
-    syllable = entry.get()
-    size = len(syllable)
+    syl = entry.get()
+    size = len(syl)
     if size == 2:
         print("possível sílava de tamanho 2")
     elif size == 3:
