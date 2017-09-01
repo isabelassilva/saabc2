@@ -61,7 +61,7 @@ def iterate():
     combobox.current(novo)
 
 
-def select(event):
+def select():
     option = combobox.current()
 
     if option == 0:
@@ -99,7 +99,7 @@ def key(event):
         if event.char == event.keysym:
             if event.char in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
                 mixer.music.load('./mp3/PK_pt-br.mp3')
-                mixer.music.play()  
+                mixer.music.play()
             else:
                 mixer.music.load('./mp3/' + event.char.upper() + '_pt-br.mp3')
                 mixer.music.play()
@@ -107,10 +107,38 @@ def key(event):
             mixer.music.load('./mp3/PK_pt-br.mp3')
             mixer.music.play()
 
-# end region
+# endregion
+
+# region Aba de Sílabas
+
+
+def syllable():
+    syllable = entry.get()
+    size = len(syllable)
+    if size == 2:
+        print("possível sílava de tamanho 2")
+    elif size == 3:
+        print("possível sílava de tamanho 3")
+    else:
+        print("não é uma sílaba")
+    entry.set('')
+
+entry = tk.StringVar()
+en = tk.Entry(aba3, textvariable=entry, font=f)
+en.pack(expand=1)
+en.focus()
+
+# endregion
 
 # region :: Binds
 
+
+def enter(event):
+    aba = notebook.index(notebook.select())
+    if aba == 0:
+        select()
+    elif aba == 2:
+        syllable()
 
 def escape():
     notebook.select(0)
@@ -123,7 +151,7 @@ def space(event):
 
 window.bind('<space>', space)
 
-aba1.bind_all('<Return>', select)
+aba1.bind_all('<Return>', enter)
 
 aba2.bind_all('<Key>', key)
 
