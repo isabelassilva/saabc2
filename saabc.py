@@ -94,22 +94,33 @@ mixer.init()
 
 
 def key(event):
+    char = event.char.upper()
+
     aba = notebook.index(notebook.select())
-    if aba == 1:
-        if event.char == event.keysym:
-            if event.char in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
-                mixer.music.load('./mp3/PK_pt-br.mp3')
-                mixer.music.play()
-            else:
-                mixer.music.load('./mp3/' + event.char.upper() + '_pt-br.mp3')
-                mixer.music.play()
+
+    if aba == 1 or aba == 2:
+        if char in alphabet:
+            mixer.music.load('./mp3/' + char + '_pt-br.mp3')
+            mixer.music.play()
         else:
             mixer.music.load('./mp3/PK_pt-br.mp3')
             mixer.music.play()
+    if aba == 2:
+        if char not in alphabet:
+            g = entry.get()
+            entry.set(g[:-1])
 
 # endregion
 
 # region Aba de Sílabas
+
+consonant = ['B', 'C', 'D', 'F', 'G', 'H', 'J',
+             'K', 'L', 'M', 'N', 'P', 'Q', 'R',
+             'S', 'T', 'V', 'W', 'X', 'Y', 'Z']
+
+vowel = ['A', 'E', 'I', 'O', 'U']
+
+alphabet = consonant + vowel
 
 
 def syllable():
