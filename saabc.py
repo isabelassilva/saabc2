@@ -1,4 +1,10 @@
 
+import pygame.mixer
+
+mixer = pygame.mixer
+
+mixer.init()
+
 # region :: Configurações da Janela Principal
 
 import tkinter as tk
@@ -53,12 +59,19 @@ notebook.add(aba4, text="         Aba de Palavras       ")
 
 # region :: Aba Inicial
 
+audio_option = ['./mp3/aba_inicial_pt-br.mp3',
+                './mp3/aba_letras_pt-br.mp3',
+                './mp3/aba_silabas_pt-br.mp3',
+                './mp3/aba_palavras_pt-br.mp3']
+
 
 def iterate():
-    atual = combobox.current()
-    novo = atual+1
-    novo = 0 if novo == 4 else novo
-    combobox.current(novo)
+    current = combobox.current()
+    new = current+1
+    new = 0 if new == 4 else new
+    combobox.current(new)
+    mixer.music.load(audio_option[new])
+    mixer.music.play()
 
 
 def select():
@@ -85,12 +98,6 @@ combobox.pack(expand=1)
 combobox.current(0)
 
 # endregion
-
-import pygame.mixer
-
-mixer = pygame.mixer
-
-mixer.init()
 
 # region Aba de Letras
 
