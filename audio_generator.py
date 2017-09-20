@@ -78,6 +78,16 @@ if internet_on():
     if not os.path.isfile(__PATH__ + 'aba_palavras_' + __LANGUAGE__ + '.mp3'):
         tts = gTTS(text='Aba de Palavras', lang=__LANGUAGE__)
         tts.save(__PATH__ + 'aba_palavras_' + __LANGUAGE__ + '.mp3')
+    # region Functions Exiting
+    if not os.path.isfile(__PATH__ + 'aba_letras_saida_' + __LANGUAGE__ + '.mp3'):
+        tts = gTTS(text='Saída da Aba de Letras', lang=__LANGUAGE__)
+        tts.save(__PATH__ + 'aba_letras_saida_' + __LANGUAGE__ + '.mp3')
+    if not os.path.isfile(__PATH__ + 'aba_silabas_saida_' + __LANGUAGE__ + '.mp3'):
+        tts = gTTS(text='Saída da Aba de Sílabas', lang=__LANGUAGE__)
+        tts.save(__PATH__ + 'aba_silabas_saida_' + __LANGUAGE__ + '.mp3')
+    if not os.path.isfile(__PATH__ + 'aba_palavras_saida_' + __LANGUAGE__ + '.mp3'):
+        tts = gTTS(text='Saída da Aba de Palavras', lang=__LANGUAGE__)
+        tts.save(__PATH__ + 'aba_palavras_saida_' + __LANGUAGE__ + '.mp3')
 
 else:
     print('This procedure requires internet connection')

@@ -64,6 +64,10 @@ audio_option = ['./mp3/aba_inicial_pt.mp3',
                 './mp3/aba_silabas_pt.mp3',
                 './mp3/aba_palavras_pt.mp3']
 
+audio_option_exiting = ['./mp3/aba_inicial_saida_pt.mp3',
+                        './mp3/aba_letras_saida_pt.mp3',
+                        './mp3/aba_silabas_saida_pt.mp3',
+                        './mp3/aba_palavras_saida_pt.mp3']
 
 def iterate():
     current = combobox.current()
@@ -201,6 +205,8 @@ def enter(event):
 
 def escape():
     notebook.select(0)
+    mixer.music.load(audio_option_exiting[combobox.current()])
+    mixer.music.play()
 
 
 def space(event):
