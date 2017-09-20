@@ -61,6 +61,10 @@ if internet_on():
         if not os.path.isfile(__PATH__ + letter + '_' + __LANGUAGE__ + '.mp3'):
             tts = gTTS(text=braille[letter], lang=__LANGUAGE__)
             tts.save(__PATH__ + letter + '_' + __LANGUAGE__ + '.mp3')
+    # region Non Letter
+    if not os.path.isfile(__PATH__ + 'NL_' + __LANGUAGE__ + '.mp3'):
+        tts = gTTS(text='Esta tecla não é uma letra.', lang=__LANGUAGE__)
+        tts.save(__PATH__ + 'NL_' + __LANGUAGE__ + '.mp3')
 
 else:
     print('This procedure requires internet connection')

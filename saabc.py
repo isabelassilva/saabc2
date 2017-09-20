@@ -109,10 +109,10 @@ def key(event):
 
     if aba == 1 or aba == 2:
         if char in alphabet:
-            mixer.music.load('./mp3/' + char + '_pt-br.mp3')
+            mixer.music.load('./mp3/' + char + '_pt.mp3')
             mixer.music.play()
         else:
-            mixer.music.load('./mp3/PK_pt-br.mp3')
+            mixer.music.load('./mp3/NL_pt.mp3')
             mixer.music.play()
     if aba == 2:
         if char not in alphabet:
