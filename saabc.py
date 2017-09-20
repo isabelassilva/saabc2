@@ -59,10 +59,10 @@ notebook.add(aba4, text="         Aba de Palavras       ")
 
 # region :: Aba Inicial
 
-audio_option = ['./mp3/aba_inicial_pt-br.mp3',
-                './mp3/aba_letras_pt-br.mp3',
-                './mp3/aba_silabas_pt-br.mp3',
-                './mp3/aba_palavras_pt-br.mp3']
+audio_option = ['./mp3/aba_inicial_pt.mp3',
+                './mp3/aba_letras_pt.mp3',
+                './mp3/aba_silabas_pt.mp3',
+                './mp3/aba_palavras_pt.mp3']
 
 
 def iterate():
@@ -197,6 +197,7 @@ def enter(event):
         select()
     elif aba == 2:
         syllable()
+
 
 def escape():
     notebook.select(0)
