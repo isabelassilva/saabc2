@@ -111,6 +111,10 @@ if internet_on():
             if not os.path.isfile(__PATH__ + L1 + L2 + '_' + __LANGUAGE__ + '.mp3'):
                 tts = gTTS(text=vowel_[L1] + ' mais ' + L2 + ' é igual a ' + vowel_[L1] + L2.lower(), lang=__LANGUAGE__)
                 tts.save(__PATH__ + L1 + L2 + '_' + __LANGUAGE__ + '.mp3')
+        for L2 in ['C', 'L', 'N']:
+            if not os.path.isfile(__PATH__ + L2 + 'H' + L1 + '_' + __LANGUAGE__ + '.mp3'):
+                tts = gTTS(text=L2 + ' mais H, mais ' + vowel_[L1] + '. É igual a. ' + L2.lower() + 'h' + vowel_[L1], lang=__LANGUAGE__)
+                tts.save(__PATH__ + L2 + 'H' + L1 + '_' + __LANGUAGE__ + '.mp3')
 
     # region Non Syllable
     if not os.path.isfile(__PATH__ + 'NS_' + __LANGUAGE__ + '.mp3'):

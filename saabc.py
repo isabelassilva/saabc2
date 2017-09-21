@@ -154,7 +154,8 @@ def syllable():
         if syl[2] in vowel:
             if syl[1] == 'H':
                 if syl[0] in ['C', 'L', 'N']:
-                    print("sílava de tamanho 3 do formato CH, LH ou NH")
+                    mixer.music.load('./mp3/' + syl + '_pt.mp3')
+                    mixer.music.play()
                 else:
                     mixer.music.load('./mp3/NS_pt.mp3')
                     mixer.music.play()
