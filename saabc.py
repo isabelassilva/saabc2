@@ -69,6 +69,7 @@ audio_option_exiting = ['./mp3/aba_inicial_saida_pt.mp3',
                         './mp3/aba_silabas_saida_pt.mp3',
                         './mp3/aba_palavras_saida_pt.mp3']
 
+
 def iterate():
     current = combobox.current()
     new = current+1
@@ -127,13 +128,15 @@ def key(event):
 
 # region Aba de Sílabas
 
-consonant = ['B', 'C', 'D', 'F', 'G', 'H', 'J',
-             'K', 'L', 'M', 'N', 'P', 'Q', 'R',
-             'S', 'T', 'V', 'W', 'X', 'Y', 'Z']
+consonant = ['B', 'C', 'D', 'F', 'G', 'H',
+             'J', 'L', 'M', 'N', 'P', 'Q',
+             'R', 'S', 'T', 'V', 'X', 'Z']
+
+special_consonant = ['K', 'W', 'Y']
 
 vowel = ['A', 'E', 'I', 'O', 'U']
 
-alphabet = consonant + vowel
+alphabet = consonant + special_consonant + vowel
 
 
 def syllable():
@@ -141,48 +144,60 @@ def syllable():
     size = len(syl)
     if size == 2:
         if syl[1] in vowel:
-            if syl[0] in consonant and syl[0] not in ['K', 'W', 'Y']:
-                print("é um sílaba de tamanho 2 que começa com consoante")
+            if syl[0] in consonant and syl[0] not in ['Q']:
+                mixer.music.load('./mp3/' + syl + '_pt.mp3')
+                mixer.music.play()
             else:
-                print("não é uma sílaba válida")
+                mixer.music.load('./mp3/NS_pt.mp3')
+                mixer.music.play()
         elif syl[1] in ['M', 'N', 'L', 'R', 'S', 'Z']:
             if syl[0] in vowel:
                 print("é um sílaba de tamanho 2 que começa com vogal")
             else:
-                print("não é uma sílaba válida")
+                mixer.music.load('./mp3/NS_pt.mp3')
+                mixer.music.play()
         else:
-            print("não é uma sílaba válida")
+            mixer.music.load('./mp3/NS_pt.mp3')
+            mixer.music.play()
     elif size == 3:
         if syl[2] in vowel:
             if syl[1] == 'H':
                 if syl[0] in ['C', 'L', 'N']:
                     print("sílava de tamanho 3 do formato CH, LH ou NH")
                 else:
-                    print("não é uma sílaba")
+                    mixer.music.load('./mp3/NS_pt.mp3')
+                    mixer.music.play()
             elif syl[1] == 'L':
                 if syl[0] in ['B', 'C', 'D', 'F', 'G', 'P', 'T', 'V']:
                     print("sílava de tamanho 3 do formato BL, CL, DL, FL,GL, PL, TL, ou VL")
                 else:
-                    print("não é uma sílaba")
+                    mixer.music.load('./mp3/NS_pt.mp3')
+                    mixer.music.play()
             elif syl[1] == 'R':
                 if syl[0] in ['B', 'C', 'D', 'F', 'G', 'P', 'T']:
                     print("sílava de tamanho 3 do formato BR, CR, DR, FR, GR, PR ou TR")
                 else:
-                    print("não é uma sílaba")
+                    mixer.music.load('./mp3/NS_pt.mp3')
+                    mixer.music.play()
             elif syl[1] == 'U':
                 if syl[0] in ['G', 'Q']:
                     if syl[2] in ['A', 'E', 'I', 'O']:
                         print("sílava de tamanho 3 do formato GU ou QU")
                     else:
-                        print("não é uma sílaba")
+                        mixer.music.load('./mp3/NS_pt.mp3')
+                        mixer.music.play()
                 else:
-                    print("não é uma sílaba")
+                    mixer.music.load('./mp3/NS_pt.mp3')
+                    mixer.music.play()
             else:
-                print("não é uma sílaba")
+                mixer.music.load('./mp3/NS_pt.mp3')
+                mixer.music.play()
         else:
-            print("não é uma sílaba")
+            mixer.music.load('./mp3/NS_pt.mp3')
+            mixer.music.play()
     else:
-        print("não é uma sílaba")
+        mixer.music.load('./mp3/NS_pt.mp3')
+        mixer.music.play()
     entry.set('')
 
 entry = tk.StringVar()
