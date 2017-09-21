@@ -152,18 +152,9 @@ def syllable():
             mixer.music.play()
     elif size == 3:
         if syl[2] in vowel:
-            if syl[1] == 'H':
-                if syl[0] in ['C', 'L', 'N']:
+            if (syl[1] == 'H' and syl[0] in ['C', 'L', 'N']) or \
+                    (syl[1] == 'L' and syl[0] in ['B', 'C', 'F', 'G', 'P', 'T', 'V']):
                     mixer.music.load('./mp3/' + syl + '_pt.mp3')
-                    mixer.music.play()
-                else:
-                    mixer.music.load('./mp3/NS_pt.mp3')
-                    mixer.music.play()
-            elif syl[1] == 'L':
-                if syl[0] in ['B', 'C', 'D', 'F', 'G', 'P', 'T', 'V']:
-                    print("sílava de tamanho 3 do formato BL, CL, DL, FL,GL, PL, TL, ou VL")
-                else:
-                    mixer.music.load('./mp3/NS_pt.mp3')
                     mixer.music.play()
             elif syl[1] == 'R':
                 if syl[0] in ['B', 'C', 'D', 'F', 'G', 'P', 'T']:
