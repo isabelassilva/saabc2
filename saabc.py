@@ -1,4 +1,8 @@
 
+import tkinter as tk
+
+from tkinter import ttk
+
 import pygame.mixer
 
 mixer = pygame.mixer
@@ -6,10 +10,6 @@ mixer = pygame.mixer
 mixer.init()
 
 # region :: Configurações da Janela Principal
-
-import tkinter as tk
-
-from tkinter import ttk
 
 window = tk.Tk()
 
@@ -143,19 +143,10 @@ def syllable():
     syl = entry.get().upper()
     size = len(syl)
     if size == 2:
-        if syl[1] in vowel:
-            if syl[0] in consonant and syl[0] not in ['Q']:
-                mixer.music.load('./mp3/' + syl + '_pt.mp3')
-                mixer.music.play()
-            else:
-                mixer.music.load('./mp3/NS_pt.mp3')
-                mixer.music.play()
-        elif syl[1] in ['M', 'N', 'L', 'R', 'S', 'Z']:
-            if syl[0] in vowel:
-                print("é um sílaba de tamanho 2 que começa com vogal")
-            else:
-                mixer.music.load('./mp3/NS_pt.mp3')
-                mixer.music.play()
+        if (syl[1] in vowel and (syl[0] in consonant and syl[0] not in ['Q'])) or \
+                (syl[1] in ['M', 'N', 'L', 'R', 'S', 'Z'] and syl[0] in vowel):
+            mixer.music.load('./mp3/' + syl + '_pt.mp3')
+            mixer.music.play()
         else:
             mixer.music.load('./mp3/NS_pt.mp3')
             mixer.music.play()

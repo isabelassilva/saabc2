@@ -96,13 +96,20 @@ if internet_on():
         tts = gTTS(text='Saída da Aba de Palavras', lang=__LANGUAGE__)
         tts.save(__PATH__ + 'aba_palavras_saida_' + __LANGUAGE__ + '.mp3')
 
-    # region Consonant
+    # region Syllable: start with Consonant, size 2
     consonant1 = consonant
     consonant1.remove('Q')
     for L1 in consonant1:
         for L2 in vowel:
             if not os.path.isfile(__PATH__ + L1 + L2 + '_' + __LANGUAGE__ + '.mp3'):
-                tts = gTTS(text=L1 + ' mais ' + vowel_[L2] + 'é igual a ' + L1.lower() + vowel_[L2], lang=__LANGUAGE__)
+                tts = gTTS(text=L1 + ' mais ' + vowel_[L2] + ' é igual a ' + L1.lower() + vowel_[L2], lang=__LANGUAGE__)
+                tts.save(__PATH__ + L1 + L2 + '_' + __LANGUAGE__ + '.mp3')
+
+    # region Syllable: start with Vowel, size 2
+    for L1 in vowel:
+        for L2 in ['M', 'N', 'L', 'R', 'S', 'Z']:
+            if not os.path.isfile(__PATH__ + L1 + L2 + '_' + __LANGUAGE__ + '.mp3'):
+                tts = gTTS(text=vowel_[L1] + ' mais ' + L2 + ' é igual a ' + vowel_[L1] + L2.lower(), lang=__LANGUAGE__)
                 tts.save(__PATH__ + L1 + L2 + '_' + __LANGUAGE__ + '.mp3')
 
     # region Non Syllable
