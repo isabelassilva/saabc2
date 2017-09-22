@@ -154,18 +154,9 @@ def syllable():
         if syl[2] in vowel:
             if (syl[1] == 'H' and syl[0] in ['C', 'L', 'N']) or \
                     (syl[1] == 'L' and syl[0] in ['B', 'C', 'F', 'G', 'P', 'T', 'V']) or \
-                    (syl[1] == 'R' and syl[0] in ['B', 'C', 'D', 'F', 'G', 'P', 'T']):
+                    (syl[1] == 'R' and syl[0] in ['B', 'C', 'D', 'F', 'G', 'P', 'T']) or \
+                    (syl[1] == 'U' and syl[0] in ['G', 'Q'] and syl[2] in ['A', 'E', 'I', 'O']):
                     mixer.music.load('./mp3/' + syl + '_pt.mp3')
-                    mixer.music.play()
-            elif syl[1] == 'U':
-                if syl[0] in ['G', 'Q']:
-                    if syl[2] in ['A', 'E', 'I', 'O']:
-                        print("sílava de tamanho 3 do formato GU ou QU")
-                    else:
-                        mixer.music.load('./mp3/NS_pt.mp3')
-                        mixer.music.play()
-                else:
-                    mixer.music.load('./mp3/NS_pt.mp3')
                     mixer.music.play()
             else:
                 mixer.music.load('./mp3/NS_pt.mp3')

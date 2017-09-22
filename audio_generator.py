@@ -111,10 +111,12 @@ if internet_on():
             if not os.path.isfile(__PATH__ + L1 + L2 + '_' + __LANGUAGE__ + '.mp3'):
                 tts = gTTS(text=vowel_[L1] + ' mais ' + L2 + ' é igual a ' + vowel_[L1] + L2.lower(), lang=__LANGUAGE__)
                 tts.save(__PATH__ + L1 + L2 + '_' + __LANGUAGE__ + '.mp3')
+    # region Syllable: start with Consonant, size 2
         for L2 in ['C', 'L', 'N']:
             if not os.path.isfile(__PATH__ + L2 + 'H' + L1 + '_' + __LANGUAGE__ + '.mp3'):
                 tts = gTTS(text=L2 + ' mais H, mais ' + vowel_[L1] + '. É igual a. ' + L2.lower() + 'h' + vowel_[L1], lang=__LANGUAGE__)
                 tts.save(__PATH__ + L2 + 'H' + L1 + '_' + __LANGUAGE__ + '.mp3')
+    # region Syllable: size 3
         for L2 in ['B', 'C', 'F', 'G', 'P', 'T', 'V']:
             if not os.path.isfile(__PATH__ + L2 + 'L' + L1 + '_' + __LANGUAGE__ + '.mp3'):
                 tts = gTTS(text=L2 + '. mais L. mais ' + vowel_[L1] + '. É igual a. ' + L2.lower() + 'l' + vowel_[L1], lang=__LANGUAGE__)
@@ -124,6 +126,14 @@ if internet_on():
                 tts = gTTS(text=L2 + '. mais R. mais ' + vowel_[L1] + '. É igual a. ' + L2.lower() + 'r' + vowel_[L1],
                            lang=__LANGUAGE__)
                 tts.save(__PATH__ + L2 + 'R' + L1 + '_' + __LANGUAGE__ + '.mp3')
+    vowel1 = vowel
+    vowel1.remove('U')
+    for L1 in vowel1:
+        for L2 in ['G', 'Q']:
+            if not os.path.isfile(__PATH__ + L2 + 'U' + L1 + '_' + __LANGUAGE__ + '.mp3'):
+                tts = gTTS(text=L2 + '. mais U. mais ' + vowel_[L1] + '. É igual a. ' + L2.lower() + 'u' + vowel_[L1],
+                           lang=__LANGUAGE__)
+                tts.save(__PATH__ + L2 + 'U' + L1 + '_' + __LANGUAGE__ + '.mp3')
 
     # region Non Syllable
     if not os.path.isfile(__PATH__ + 'NS_' + __LANGUAGE__ + '.mp3'):
