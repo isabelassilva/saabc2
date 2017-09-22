@@ -24,7 +24,7 @@ window.resizable(0, 0)
 
 # endregion
 
-# region :: Configuraçao de Fontes
+# region :: Configuração de Fontes
 
 fontsize = 40
 f = ("Times News Roman", fontsize)
@@ -94,9 +94,9 @@ w = 15
 combobox = ttk.Combobox(aba1, width=w, state='readonly', font=f)
 
 combobox['values'] = ('ABA INICIAL',
-                    'ABA DE LETRAS',
-                    'ABA DE SÍLABAS',
-                    'ABA DE PALAVRAS')
+                      'ABA DE LETRAS',
+                      'ABA DE SÍLABAS',
+                      'ABA DE PALAVRAS')
 
 combobox.pack(expand=1)
 
