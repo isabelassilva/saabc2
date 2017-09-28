@@ -88,6 +88,8 @@ def select():
         notebook.select(option)
         if option == 2:
             sy_entry.set('')
+        if option == 3:
+            wo_entry.set('')
 
 w = 15
 
@@ -173,6 +175,15 @@ sy_entry = tk.StringVar()
 syl = tk.Entry(aba3, textvariable=sy_entry, font=f)
 syl.pack(expand=1)
 syl.focus()
+
+# endregion
+
+# region Aba de Palavras
+
+wo_entry = tk.StringVar()
+wor = tk.Entry(aba4, textvariable=wo_entry, font=f)
+wor.pack(expand=1)
+wor.focus()
 
 # endregion
 
