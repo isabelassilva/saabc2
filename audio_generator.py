@@ -140,5 +140,10 @@ if internet_on():
         tts = gTTS(text='Não é uma sílaba', lang=__LANGUAGE__)
         tts.save(__PATH__ + 'NS_' + __LANGUAGE__ + '.mp3')
 
+    # region Non Word
+    if not os.path.isfile(__PATH__ + 'NW_' + __LANGUAGE__ + '.mp3'):
+        tts = gTTS(text='Não é uma palavra', lang=__LANGUAGE__)
+        tts.save(__PATH__ + 'NW_' + __LANGUAGE__ + '.mp3')
+
 else:
     print('This procedure requires internet connection')
