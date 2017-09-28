@@ -3,6 +3,10 @@ import tkinter as tk
 
 from tkinter import ttk
 
+import enchant
+
+import os.path
+
 import pygame.mixer
 
 mixer = pygame.mixer
@@ -180,6 +184,26 @@ syl.focus()
 
 # region Aba de Palavras
 
+dictionary = enchant.request_pwl_dict("pt-BR_out.dic")
+
+
+def word():
+    wo = wo_entry.get().lower()
+    b = dictionary.check(wo)
+    file = './mp3/' + wo + '_pt.mp3'
+    if b:
+        if os.path.isfile(file):
+            mixer.music.load(file)
+            mixer.music.play()
+        else:
+            print("It is a valid word")
+    else:
+        mixer.music.load('./mp3/NW_pt.mp3')
+        mixer.music.play()
+
+    wo_entry.set('')
+
+
 wo_entry = tk.StringVar()
 wor = tk.Entry(aba4, textvariable=wo_entry, font=f)
 wor.pack(expand=1)
@@ -197,6 +221,8 @@ def enter(event):
         select()
     elif aba == 2:
         syllable()
+    elif aba == 3:
+        word()
 
 
 def escape():
