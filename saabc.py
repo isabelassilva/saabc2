@@ -87,7 +87,7 @@ def select():
     else:
         notebook.select(option)
         if option == 2:
-            entry.set('')
+            sy_entry.set('')
 
 w = 15
 
@@ -121,8 +121,8 @@ def key(event):
             mixer.music.play()
     if aba == 2:
         if char not in alphabet:
-            g = entry.get()
-            entry.set(g[:-1])
+            g = sy_entry.get()
+            sy_entry.set(g[:-1])
 
 # endregion
 
@@ -140,23 +140,23 @@ alphabet = consonant + special_consonant + vowel
 
 
 def syllable():
-    syl = entry.get().upper()
-    size = len(syl)
+    sy = sy_entry.get().upper()
+    size = len(sy)
     if size == 2:
-        if (syl[1] in vowel and (syl[0] in consonant and syl[0] not in ['Q'])) or \
-                (syl[1] in ['M', 'N', 'L', 'R', 'S', 'Z'] and syl[0] in vowel):
-            mixer.music.load('./mp3/' + syl + '_pt.mp3')
+        if (sy[1] in vowel and (sy[0] in consonant and sy[0] not in ['Q'])) or \
+                (sy[1] in ['M', 'N', 'L', 'R', 'S', 'Z'] and sy[0] in vowel):
+            mixer.music.load('./mp3/' + sy + '_pt.mp3')
             mixer.music.play()
         else:
             mixer.music.load('./mp3/NS_pt.mp3')
             mixer.music.play()
     elif size == 3:
-        if syl[2] in vowel:
-            if (syl[1] == 'H' and syl[0] in ['C', 'L', 'N']) or \
-                    (syl[1] == 'L' and syl[0] in ['B', 'C', 'F', 'G', 'P', 'T', 'V']) or \
-                    (syl[1] == 'R' and syl[0] in ['B', 'C', 'D', 'F', 'G', 'P', 'T']) or \
-                    (syl[1] == 'U' and syl[0] in ['G', 'Q'] and syl[2] in ['A', 'E', 'I', 'O']):
-                    mixer.music.load('./mp3/' + syl + '_pt.mp3')
+        if sy[2] in vowel:
+            if (sy[1] == 'H' and sy[0] in ['C', 'L', 'N']) or \
+                    (sy[1] == 'L' and sy[0] in ['B', 'C', 'F', 'G', 'P', 'T', 'V']) or \
+                    (sy[1] == 'R' and sy[0] in ['B', 'C', 'D', 'F', 'G', 'P', 'T']) or \
+                    (sy[1] == 'U' and sy[0] in ['G', 'Q'] and sy[2] in ['A', 'E', 'I', 'O']):
+                    mixer.music.load('./mp3/' + sy + '_pt.mp3')
                     mixer.music.play()
             else:
                 mixer.music.load('./mp3/NS_pt.mp3')
@@ -167,18 +167,19 @@ def syllable():
     else:
         mixer.music.load('./mp3/NS_pt.mp3')
         mixer.music.play()
-    entry.set('')
+    sy_entry.set('')
 
-entry = tk.StringVar()
-en = tk.Entry(aba3, textvariable=entry, font=f)
-en.pack(expand=1)
-en.focus()
+sy_entry = tk.StringVar()
+syl = tk.Entry(aba3, textvariable=sy_entry, font=f)
+syl.pack(expand=1)
+syl.focus()
 
 # endregion
 
 # region :: Binds
 
 
+# noinspection PyUnusedLocal
 def enter(event):
     aba = notebook.index(notebook.select())
     if aba == 0:
@@ -193,6 +194,7 @@ def escape():
     mixer.music.play()
 
 
+# noinspection PyUnusedLocal
 def space(event):
     aba = notebook.index(notebook.select())
     iterate() if aba == 0 else escape()
