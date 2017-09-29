@@ -102,8 +102,10 @@ def select():
         notebook.select(option)
         if option == 2:
             sy_entry.set('')
+            syl.focus()
         if option == 3:
             wo_entry.set('')
+            wor.focus()
 
 w = 15
 
@@ -188,7 +190,6 @@ def syllable():
 sy_entry = tk.StringVar()
 syl = tk.Entry(aba3, textvariable=sy_entry, font=f)
 syl.pack(expand=1)
-syl.focus()
 
 # endregion
 
@@ -222,7 +223,6 @@ def word():
 wo_entry = tk.StringVar()
 wor = tk.Entry(aba4, textvariable=wo_entry, font=f)
 wor.pack(expand=1)
-wor.focus()
 
 # endregion
 
