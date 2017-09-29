@@ -147,3 +147,12 @@ if internet_on():
 
 else:
     print('This procedure requires internet connection')
+
+
+def record(msg, lgg):
+    if internet_on():
+        texts = gTTS(text=msg, lang=lgg)
+        texts.save('./mp3/' + msg + '_' + lgg + '.mp3')
+        return True
+    else:
+        return False

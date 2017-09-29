@@ -11,6 +11,8 @@ import pyttsx3
 
 import pygame.mixer
 
+from audio_generator import record
+
 engine = pyttsx3.init()
 
 rate = engine.getProperty('rate')
@@ -205,18 +207,21 @@ dictionary = enchant.request_pwl_dict("pt-BR_out.dic")
 
 def word():
     wo = wo_entry.get().lower()
-    b = dictionary.check(wo)
-    file = './mp3/' + wo + '_pt.mp3'
-    if b:
-        if os.path.isfile(file):
-            mixer.music.load(file)
-            mixer.music.play()
+    if wo != '':
+        b = dictionary.check(wo)
+        file = './mp3/' + wo + '_pt.mp3'
+        if b:
+            if os.path.isfile(file):
+                mixer.music.load(file)
+                mixer.music.play()
+            elif record(wo, 'pt'):
+                mixer.music.load(file)
+                mixer.music.play()
+            else:
+                say(wo)
         else:
-            print("It is a valid word")
-            say(wo)
-    else:
-        mixer.music.load('./mp3/NW_pt.mp3')
-        mixer.music.play()
+            mixer.music.load('./mp3/NW_pt.mp3')
+            mixer.music.play()
 
     wo_entry.set('')
 
