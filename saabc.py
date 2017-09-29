@@ -7,7 +7,17 @@ import enchant
 
 import os.path
 
+import pyttsx3
+
 import pygame.mixer
+
+engine = pyttsx3.init()
+
+rate = engine.getProperty('rate')
+
+engine.setProperty('rate', rate-50)
+
+engine.setProperty('voice', 'brazil')
 
 mixer = pygame.mixer
 
@@ -184,6 +194,11 @@ syl.focus()
 
 # region Aba de Palavras
 
+
+def say(msg):
+    engine.say(msg)
+    engine.runAndWait()
+
 dictionary = enchant.request_pwl_dict("pt-BR_out.dic")
 
 
@@ -197,12 +212,12 @@ def word():
             mixer.music.play()
         else:
             print("It is a valid word")
+            say(wo)
     else:
         mixer.music.load('./mp3/NW_pt.mp3')
         mixer.music.play()
 
     wo_entry.set('')
-
 
 wo_entry = tk.StringVar()
 wor = tk.Entry(aba4, textvariable=wo_entry, font=f)
