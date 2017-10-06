@@ -13,6 +13,8 @@ import pygame.mixer
 
 from audio_generator import record
 
+# region init
+
 engine = pyttsx3.init()
 
 rate = engine.getProperty('rate')
@@ -24,6 +26,8 @@ engine.setProperty('voice', 'brazil')
 mixer = pygame.mixer
 
 mixer.init()
+
+# endregion
 
 # region :: Configurações da Janela Principal
 
@@ -99,7 +103,7 @@ def select():
     option = combobox.current()
 
     if option == 0:
-        print("Ouvir novamente as instruções de uso")
+        print("Listen again instructions tutorial")
     else:
         notebook.select(option)
         if option == 2:
@@ -111,7 +115,7 @@ def select():
 
 w = 15
 
-combobox = ttk.Combobox(aba1, width=w, state='readonly', font=f)
+combobox = ttk.Combobox(aba1, width=w, state='disabled', font=f)
 
 combobox['values'] = ('ABA INICIAL',
                       'ABA DE LETRAS',
@@ -131,6 +135,30 @@ def key(event):
     char = event.char.upper()
 
     aba = notebook.index(notebook.select())
+
+    if aba == 0:
+        if combobox['state'].string == 'disabled':
+            global file
+            if mixer.music.get_busy() and file == './mp3/msg1_pt.mp3':
+                    pass
+            else:
+                if event.keysym == 'space':
+                    global flag_space
+                    flag_space += 1
+                    if flag_space == 3:
+                        file = './mp3/msg3_pt.mp3'
+                        mixer.music.load(file)
+                        mixer.music.play()
+                        combobox['state'] = 'enabled'
+                        combobox['state'] = 'readonly'
+                    else:
+                        file = './mp3/msg2_pt.mp3'
+                        mixer.music.load(file)
+                        mixer.music.play()
+                else:
+                    file = './mp3/space_pt.mp3'
+                    mixer.music.load(file)
+                    mixer.music.play()
 
     if aba == 1 or aba == 2:
         if char in alphabet:
@@ -209,13 +237,13 @@ def word():
     wo = wo_entry.get().lower()
     if wo != '':
         b = dictionary.check(wo)
-        file = './mp3/' + wo + '_pt.mp3'
+        word_file = './mp3/' + wo + '_pt.mp3'
         if b:
-            if os.path.isfile(file):
-                mixer.music.load(file)
+            if os.path.isfile(word_file):
+                mixer.music.load(word_file)
                 mixer.music.play()
             elif record(wo, 'pt'):
-                mixer.music.load(file)
+                mixer.music.load(word_file)
                 mixer.music.play()
             else:
                 say(wo)
@@ -238,7 +266,12 @@ wor.pack(expand=1)
 def enter(event):
     aba = notebook.index(notebook.select())
     if aba == 0:
-        select()
+        if combobox['state'].string == 'disabled':
+            stop()
+            combobox['state'] = 'enabled'
+            combobox['state'] = 'readonly'
+        else:
+            select()
     elif aba == 2:
         syllable()
     elif aba == 3:
@@ -254,14 +287,41 @@ def escape():
 # noinspection PyUnusedLocal
 def space(event):
     aba = notebook.index(notebook.select())
-    iterate() if aba == 0 else escape()
-
+    if aba == 0:
+        if combobox['state'].string == 'disabled':
+            pass
+        else:
+            iterate()
+    else:
+        escape()
 
 window.bind('<space>', space)
 
 aba1.bind_all('<Return>', enter)
 
 aba2.bind_all('<Key>', key)
+
+# endregion
+
+# region Tutorial
+
+flag_space = 0
+
+
+def stop():
+    mixer.music.stop()
+
+file = ' '
+
+
+def tutorial():
+    global file
+    file = './mp3/msg1_pt.mp3'
+    mixer.music.load(file)
+    mixer.music.play()
+
+
+window.after(100, tutorial)
 
 # endregion
 
