@@ -232,33 +232,10 @@ wor.pack(expand=1)
 
 
 def key(event):
-    char = event.char.upper()
-
     aba = notebook.index(notebook.select())
 
     if aba == 0:
-        if combobox['state'].string == 'disabled':
-            global file
-            if mixer.music.get_busy() and file == './mp3/msg1_pt.mp3':
-                    pass
-            else:
-                if event.keysym == 'space':
-                    global flag_space
-                    flag_space += 1
-                    if flag_space == 3:
-                        file = './mp3/msg3_pt.mp3'
-                        mixer.music.load(file)
-                        mixer.music.play()
-                        combobox['state'] = 'enabled'
-                        combobox['state'] = 'readonly'
-                    else:
-                        file = './mp3/msg2_pt.mp3'
-                        mixer.music.load(file)
-                        mixer.music.play()
-                else:
-                    file = './mp3/space_pt.mp3'
-                    mixer.music.load(file)
-                    mixer.music.play()
+        try_space(event.keysym)
 
     if aba == 1 or aba == 2:
         letter(event.char.upper())
@@ -307,23 +284,47 @@ aba2.bind_all('<Key>', key)
 
 # region Tutorial
 
+file = ' '
 flag_space = 0
+
+
+def try_space(keysym):
+    if combobox['state'].string == 'disabled':
+        global file
+        if mixer.music.get_busy() and file == './mp3/tutorial_space.mp3':
+            pass
+        else:
+            if keysym == 'space':
+                global flag_space
+                flag_space += 1
+                if flag_space == 3:
+                    file = './mp3/msg3_pt.mp3'
+                    mixer.music.load(file)
+                    mixer.music.play()
+                    combobox['state'] = 'enabled'
+                    combobox['state'] = 'readonly'
+                else:
+                    file = './mp3/click_space.mp3'
+                    mixer.music.load(file)
+                    mixer.music.play()
+            else:
+                file = './mp3/space_pt.mp3'
+                mixer.music.load(file)
+                mixer.music.play()
 
 
 def stop():
     mixer.music.stop()
 
-file = ' '
 
-
-def tutorial():
+def tutorial_space():
     global file
-    file = './mp3/msg1_pt.mp3'
+    file = './mp3/tutorial_space.mp3'
     mixer.music.load(file)
     mixer.music.play()
 
 
-window.after(100, tutorial)
+window.after(100, tutorial_space)
 
 # endregion
 
