@@ -19,7 +19,7 @@ engine = pyttsx3.init()
 
 rate = engine.getProperty('rate')
 
-engine.setProperty('rate', rate-50)
+engine.setProperty('rate', rate - 50)
 
 engine.setProperty('voice', 'brazil')
 
@@ -92,7 +92,7 @@ audio_option_exiting = ['./mp3/aba_inicial_saida_pt.mp3',
 
 def iterate():
     current = combobox.current()
-    new = current+1
+    new = current + 1
     new = 0 if new == 4 else new
     combobox.current(new)
     mixer.music.load(audio_option[new])
@@ -232,10 +232,11 @@ wor.pack(expand=1)
 
 
 def key(event):
+    print("in key() function")
     aba = notebook.index(notebook.select())
 
     if aba == 0:
-        try_space(event.keysym)
+        no_space(event.keysym)
 
     if aba == 1 or aba == 2:
         letter(event.char.upper())
@@ -243,6 +244,7 @@ def key(event):
 
 # noinspection PyUnusedLocal
 def enter(event):
+    print("in enter() function")
     aba = notebook.index(notebook.select())
     if aba == 0:
         if combobox['state'].string == 'disabled':
@@ -265,10 +267,11 @@ def escape():
 
 # noinspection PyUnusedLocal
 def space(event):
+    print("in space() function")
     aba = notebook.index(notebook.select())
     if aba == 0:
         if combobox['state'].string == 'disabled':
-            pass
+            is_space()
         else:
             iterate()
     else:
@@ -276,9 +279,9 @@ def space(event):
 
 window.bind('<space>', space)
 
-aba1.bind_all('<Return>', enter)
+window.bind_all('<Return>', enter)
 
-aba2.bind_all('<Key>', key)
+window.bind_all('<Key>', key)
 
 # endregion
 
@@ -288,27 +291,35 @@ file = ' '
 flag_space = 0
 
 
-def try_space(keysym):
+def is_space():
+    global file
+    global flag_space
+    if mixer.music.get_busy() and file == './mp3/tutorial_space.mp3':
+        pass
+    else:
+        flag_space += 1
+        if flag_space == 3:
+            file = './mp3/tutorial_enter.mp3'
+            mixer.music.load(file)
+            mixer.music.play()
+            combobox['state'] = 'enabled'
+            combobox['state'] = 'readonly'
+        else:
+            file = './mp3/click_space.mp3'
+            mixer.music.load(file)
+            mixer.music.play()
+
+
+def no_space(keysym):
     if combobox['state'].string == 'disabled':
         global file
         if mixer.music.get_busy() and file == './mp3/tutorial_space.mp3':
             pass
         else:
             if keysym == 'space':
-                global flag_space
-                flag_space += 1
-                if flag_space == 3:
-                    file = './mp3/msg3_pt.mp3'
-                    mixer.music.load(file)
-                    mixer.music.play()
-                    combobox['state'] = 'enabled'
-                    combobox['state'] = 'readonly'
-                else:
-                    file = './mp3/click_space.mp3'
-                    mixer.music.load(file)
-                    mixer.music.play()
+                pass
             else:
-                file = './mp3/space_pt.mp3'
+                file = './mp3/no_space.mp3'
                 mixer.music.load(file)
                 mixer.music.play()
 
