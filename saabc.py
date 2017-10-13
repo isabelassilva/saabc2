@@ -91,7 +91,9 @@ def iterate():
     new = current+1
     new = 0 if new == 4 else new
     combobox.current(new)
-    mixer.music.load(audio_option[new])
+    global file
+    file = audio_option[new]
+    mixer.music.load(file)
     mixer.music.play()
 
 
@@ -99,7 +101,7 @@ def select():
     option = combobox.current()
 
     if option == 0:
-        print("Ouvir novamente as instruções de uso")
+        welcome()
     else:
         notebook.select(option)
         if option == 2:
@@ -209,13 +211,13 @@ def word():
     wo = wo_entry.get().lower()
     if wo != '':
         b = dictionary.check(wo)
-        file = './mp3/' + wo + '_pt.mp3'
+        word_file = './mp3/' + wo + '_pt.mp3'
         if b:
-            if os.path.isfile(file):
-                mixer.music.load(file)
+            if os.path.isfile(word_file):
+                mixer.music.load(word_file)
                 mixer.music.play()
             elif record(wo, 'pt'):
-                mixer.music.load(file)
+                mixer.music.load(word_file)
                 mixer.music.play()
             else:
                 say(wo)
@@ -238,7 +240,11 @@ wor.pack(expand=1)
 def enter(event):
     aba = notebook.index(notebook.select())
     if aba == 0:
-        select()
+        global file
+        if mixer.music.get_busy() and file == './mp3/welcome.mp3':
+            mixer.music.stop()
+        else:
+            select()
     elif aba == 2:
         syllable()
     elif aba == 3:
@@ -254,8 +260,14 @@ def escape():
 # noinspection PyUnusedLocal
 def space(event):
     aba = notebook.index(notebook.select())
-    iterate() if aba == 0 else escape()
-
+    if aba == 0:
+        global file
+        if mixer.music.get_busy() and file == './mp3/welcome.mp3':
+            pass
+        else:
+            iterate()
+    else:
+        escape()
 
 window.bind('<space>', space)
 
@@ -267,8 +279,11 @@ aba2.bind_all('<Key>', key)
 
 # region Welcome
 
+file = ' '
+
 
 def welcome():
+    global file
     file = './mp3/welcome.mp3'
     mixer.music.load(file)
     mixer.music.play()
