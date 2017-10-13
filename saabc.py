@@ -265,4 +265,16 @@ aba2.bind_all('<Key>', key)
 
 # endregion
 
+# region Welcome
+
+
+def welcome():
+    file = './mp3/welcome.mp3'
+    mixer.music.load(file)
+    mixer.music.play()
+
+window.after(100, welcome)
+
+# endregion
+
 window.mainloop()
