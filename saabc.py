@@ -13,17 +13,21 @@ import pygame.mixer
 
 from audio_generator import record
 
+# region :: init()
+
 engine = pyttsx3.init()
 
 rate = engine.getProperty('rate')
 
-engine.setProperty('rate', rate-50)
+engine.setProperty('rate', rate- 50)
 
 engine.setProperty('voice', 'brazil')
 
 mixer = pygame.mixer
 
 mixer.init()
+
+# endregion()
 
 # region :: Configurações da Janela Principal
 
@@ -88,7 +92,7 @@ audio_option_exiting = ['./mp3/aba_inicial_saida_pt.mp3',
 
 def iterate():
     current = combobox.current()
-    new = current+1
+    new = current + 1
     new = 0 if new == 4 else new
     combobox.current(new)
     global file
@@ -271,13 +275,13 @@ def space(event):
 
 window.bind('<space>', space)
 
-aba1.bind_all('<Return>', enter)
+window.bind_all('<Return>', enter)
 
-aba2.bind_all('<Key>', key)
+window.bind_all('<Key>', key)
 
 # endregion
 
-# region Welcome
+# region :: Welcome
 
 file = ' '
 
