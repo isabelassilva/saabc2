@@ -73,28 +73,38 @@ if internet_on():
         tts.save(__PATH__ + 'NL_' + __LANGUAGE__ + '.mp3')
 
     # region Combobox Options
-    if not os.path.isfile(__PATH__ + 'aba_inicial_' + __LANGUAGE__ + '.mp3'):
-        tts = gTTS(text='Aba Inicial', lang=__LANGUAGE__)
-        tts.save(__PATH__ + 'aba_inicial_' + __LANGUAGE__ + '.mp3')
-    if not os.path.isfile(__PATH__ + 'aba_letras_' + __LANGUAGE__ + '.mp3'):
-        tts = gTTS(text='Aba de Letras', lang=__LANGUAGE__)
-        tts.save(__PATH__ + 'aba_letras_' + __LANGUAGE__ + '.mp3')
-    if not os.path.isfile(__PATH__ + 'aba_silabas_' + __LANGUAGE__ + '.mp3'):
-        tts = gTTS(text='Aba de Sílabas', lang=__LANGUAGE__)
-        tts.save(__PATH__ + 'aba_silabas_' + __LANGUAGE__ + '.mp3')
-    if not os.path.isfile(__PATH__ + 'aba_palavras_' + __LANGUAGE__ + '.mp3'):
-        tts = gTTS(text='Aba de Palavras', lang=__LANGUAGE__)
-        tts.save(__PATH__ + 'aba_palavras_' + __LANGUAGE__ + '.mp3')
+    if not os.path.isfile(__PATH__ + 'func_inicial_' + __LANGUAGE__ + '.mp3'):
+        tts = gTTS(text='Ouvir novamente as instruções de uso', lang=__LANGUAGE__)
+        tts.save(__PATH__ + 'func_inicial_' + __LANGUAGE__ + '.mp3')
+    if not os.path.isfile(__PATH__ + 'func_letras_' + __LANGUAGE__ + '.mp3'):
+        tts = gTTS(text='Função Letras', lang=__LANGUAGE__)
+        tts.save(__PATH__ + 'func_letras_' + __LANGUAGE__ + '.mp3')
+    if not os.path.isfile(__PATH__ + 'func_silabas_' + __LANGUAGE__ + '.mp3'):
+        tts = gTTS(text='Função Sílabas', lang=__LANGUAGE__)
+        tts.save(__PATH__ + 'func_silabas_' + __LANGUAGE__ + '.mp3')
+    if not os.path.isfile(__PATH__ + 'func_palavras_' + __LANGUAGE__ + '.mp3'):
+        tts = gTTS(text='Função Palavras', lang=__LANGUAGE__)
+        tts.save(__PATH__ + 'func_palavras_' + __LANGUAGE__ + '.mp3')
     # region Functions Exiting
-    if not os.path.isfile(__PATH__ + 'aba_letras_saida_' + __LANGUAGE__ + '.mp3'):
-        tts = gTTS(text='Saída da Aba de Letras', lang=__LANGUAGE__)
-        tts.save(__PATH__ + 'aba_letras_saida_' + __LANGUAGE__ + '.mp3')
-    if not os.path.isfile(__PATH__ + 'aba_silabas_saida_' + __LANGUAGE__ + '.mp3'):
-        tts = gTTS(text='Saída da Aba de Sílabas', lang=__LANGUAGE__)
-        tts.save(__PATH__ + 'aba_silabas_saida_' + __LANGUAGE__ + '.mp3')
-    if not os.path.isfile(__PATH__ + 'aba_palavras_saida_' + __LANGUAGE__ + '.mp3'):
-        tts = gTTS(text='Saída da Aba de Palavras', lang=__LANGUAGE__)
-        tts.save(__PATH__ + 'aba_palavras_saida_' + __LANGUAGE__ + '.mp3')
+    if not os.path.isfile(__PATH__ + 'func_letras_saida_' + __LANGUAGE__ + '.mp3'):
+        tts = gTTS(text='Saída da Função Letras', lang=__LANGUAGE__)
+        tts.save(__PATH__ + 'func_letras_saida_' + __LANGUAGE__ + '.mp3')
+    if not os.path.isfile(__PATH__ + 'func_silabas_saida_' + __LANGUAGE__ + '.mp3'):
+        tts = gTTS(text='Saída da Função Sílabas', lang=__LANGUAGE__)
+        tts.save(__PATH__ + 'func_silabas_saida_' + __LANGUAGE__ + '.mp3')
+    if not os.path.isfile(__PATH__ + 'func_palavras_saida_' + __LANGUAGE__ + '.mp3'):
+        tts = gTTS(text='Saída da Função Palavras', lang=__LANGUAGE__)
+        tts.save(__PATH__ + 'func_palavras_saida_' + __LANGUAGE__ + '.mp3')
+    # region Functions Accessing
+    if not os.path.isfile(__PATH__ + 'func_letras_entrada_' + __LANGUAGE__ + '.mp3'):
+        tts = gTTS(text='Entrada na Função Letras', lang=__LANGUAGE__)
+        tts.save(__PATH__ + 'func_letras_entrada_' + __LANGUAGE__ + '.mp3')
+    if not os.path.isfile(__PATH__ + 'func_silabas_entrada_' + __LANGUAGE__ + '.mp3'):
+        tts = gTTS(text='Entrada na Função Sílabas', lang=__LANGUAGE__)
+        tts.save(__PATH__ + 'func_silabas_entrada_' + __LANGUAGE__ + '.mp3')
+    if not os.path.isfile(__PATH__ + 'func_palavras_entrada_' + __LANGUAGE__ + '.mp3'):
+        tts = gTTS(text='Entrada na Função Palavras', lang=__LANGUAGE__)
+        tts.save(__PATH__ + 'func_palavras_entrada_' + __LANGUAGE__ + '.mp3')
 
     # region Syllable: start with Consonant, size 2
     consonant1 = consonant

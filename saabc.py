@@ -79,15 +79,20 @@ notebook.add(aba4, text="         Aba de Palavras       ")
 
 # region :: Aba Inicial
 
-audio_option = ['./mp3/aba_inicial_pt.mp3',
-                './mp3/aba_letras_pt.mp3',
-                './mp3/aba_silabas_pt.mp3',
-                './mp3/aba_palavras_pt.mp3']
+audio_option = ['./mp3/func_inicial_pt.mp3',
+                './mp3/func_letras_pt.mp3',
+                './mp3/func_silabas_pt.mp3',
+                './mp3/func_palavras_pt.mp3']
 
-audio_option_exiting = ['./mp3/aba_inicial_saida_pt.mp3',
-                        './mp3/aba_letras_saida_pt.mp3',
-                        './mp3/aba_silabas_saida_pt.mp3',
-                        './mp3/aba_palavras_saida_pt.mp3']
+audio_option_exiting = ['./mp3/func_inicial_saida_pt.mp3',
+                        './mp3/func_letras_saida_pt.mp3',
+                        './mp3/func_silabas_saida_pt.mp3',
+                        './mp3/func_palavras_saida_pt.mp3']
+
+audio_option_accessing = ['./mp3/func_inicial_entrada_pt.mp3',
+                          './mp3/func_letras_entrada_pt.mp3',
+                          './mp3/func_silabas_entrada_pt.mp3',
+                          './mp3/func_palavras_entrada_pt.mp3']
 
 
 def iterate():
@@ -108,6 +113,8 @@ def select():
         welcome()
     else:
         notebook.select(option)
+        mixer.music.load(audio_option_accessing[option])
+        mixer.music.play()
         if option == 2:
             sy_entry.set('')
             syl.focus()
