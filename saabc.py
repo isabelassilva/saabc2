@@ -35,10 +35,7 @@ window = tk.Tk()
 
 window.title("SAABC: Software de Auxílio à Alfabetização Braille para Crianças")
 
-xsize = 650
-ysize = 500
-
-window.geometry('%dx%d' % (xsize, ysize))
+window.attributes('-zoomed', True)
 
 window.resizable(0, 0)
 
