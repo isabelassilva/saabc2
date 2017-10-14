@@ -85,6 +85,9 @@ if internet_on():
     if not os.path.isfile(__PATH__ + 'func_palavras_' + __LANGUAGE__ + '.mp3'):
         tts = gTTS(text='Função Palavras', lang=__LANGUAGE__)
         tts.save(__PATH__ + 'func_palavras_' + __LANGUAGE__ + '.mp3')
+    if not os.path.isfile(__PATH__ + 'func_sair_' + __LANGUAGE__ + '.mp3'):
+        tts = gTTS(text='Sair', lang=__LANGUAGE__)
+        tts.save(__PATH__ + 'func_sair_' + __LANGUAGE__ + '.mp3')
     # region Functions Exiting
     if not os.path.isfile(__PATH__ + 'func_letras_saida_' + __LANGUAGE__ + '.mp3'):
         tts = gTTS(text='Saída da Função Letras', lang=__LANGUAGE__)

@@ -79,14 +79,15 @@ notebook.add(aba4, text="         Aba de Palavras       ")
 audio_option = ['./mp3/func_inicial_pt.mp3',
                 './mp3/func_letras_pt.mp3',
                 './mp3/func_silabas_pt.mp3',
-                './mp3/func_palavras_pt.mp3']
+                './mp3/func_palavras_pt.mp3',
+                './mp3/func_sair_pt.mp3']
 
 audio_option_exiting = ['./mp3/func_inicial_saida_pt.mp3',
                         './mp3/func_letras_saida_pt.mp3',
                         './mp3/func_silabas_saida_pt.mp3',
                         './mp3/func_palavras_saida_pt.mp3']
 
-audio_option_accessing = ['./mp3/func_inicial_entrada_pt.mp3',
+audio_option_accessing = [' ',
                           './mp3/func_letras_entrada_pt.mp3',
                           './mp3/func_silabas_entrada_pt.mp3',
                           './mp3/func_palavras_entrada_pt.mp3']
@@ -95,7 +96,7 @@ audio_option_accessing = ['./mp3/func_inicial_entrada_pt.mp3',
 def iterate():
     current = combobox.current()
     new = current + 1
-    new = 0 if new == 4 else new
+    new = 0 if new == 5 else new
     combobox.current(new)
     global file
     file = audio_option[new]
@@ -108,6 +109,8 @@ def select():
 
     if option == 0:
         welcome()
+    elif option == 4:
+        sair()
     else:
         notebook.select(option)
         mixer.music.load(audio_option_accessing[option])
@@ -126,7 +129,8 @@ combobox = ttk.Combobox(aba1, width=w, state='readonly', font=f)
 combobox['values'] = ('ABA INICIAL',
                       'ABA DE LETRAS',
                       'ABA DE SÍLABAS',
-                      'ABA DE PALAVRAS')
+                      'ABA DE PALAVRAS',
+                      'SAIR')
 
 combobox.pack(expand=1)
 
@@ -300,6 +304,14 @@ def welcome():
     mixer.music.play()
 
 window.after(100, welcome)
+
+# endregion
+
+# region :: Função Sair
+
+
+def sair():
+    window.destroy()
 
 # endregion
 
