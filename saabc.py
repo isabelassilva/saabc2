@@ -19,7 +19,7 @@ engine = pyttsx3.init()
 
 rate = engine.getProperty('rate')
 
-engine.setProperty('rate', rate- 50)
+engine.setProperty('rate', rate - 50)
 
 engine.setProperty('voice', 'brazil')
 
@@ -140,22 +140,16 @@ combobox.current(0)
 # region Aba de Letras
 
 
-def key(event):
-    char = event.char.upper()
+def letter(char):
+    if char in alphabet:
+        mixer.music.load('./mp3/' + char + '_pt.mp3')
+        mixer.music.play()
+    else:
+        mixer.music.load('./mp3/NL_pt.mp3')
+        mixer.music.play()
+        g = sy_entry.get()
+        sy_entry.set(g[:-1])
 
-    aba = notebook.index(notebook.select())
-
-    if aba == 1 or aba == 2:
-        if char in alphabet:
-            mixer.music.load('./mp3/' + char + '_pt.mp3')
-            mixer.music.play()
-        else:
-            mixer.music.load('./mp3/NL_pt.mp3')
-            mixer.music.play()
-    if aba == 2:
-        if char not in alphabet:
-            g = sy_entry.get()
-            sy_entry.set(g[:-1])
 
 # endregion
 
@@ -245,6 +239,15 @@ wor.pack(expand=1)
 # endregion
 
 # region :: Binds
+
+
+def key(event):
+    char = event.char.upper()
+
+    aba = notebook.index(notebook.select())
+
+    if aba == 1 or aba == 2:
+        letter(char)
 
 
 # noinspection PyUnusedLocal
