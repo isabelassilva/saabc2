@@ -210,20 +210,25 @@ def say(msg):
     engine.say(msg)
     engine.runAndWait()
 
-dictionary = enchant.request_pwl_dict("pt-BR_out.dic")
+with open("pt-BR_out.dic") as word_file:
+    portuguese_words = set(word.strip().lower() for word in word_file)
+
+
+def is_portuguese_word(word):
+    return word.lower() in portuguese_words
 
 
 def word():
     wo = wo_entry.get().lower()
     if wo != '':
-        b = dictionary.check(wo)
-        word_file = './mp3/' + wo + '_pt.mp3'
+        b = is_portuguese_word(wo)
+        wo_file = './mp3/' + wo + '_pt.mp3'
         if b:
-            if os.path.isfile(word_file):
-                mixer.music.load(word_file)
+            if os.path.isfile(wo_file):
+                mixer.music.load(wo_file)
                 mixer.music.play()
             elif record(wo, 'pt'):
-                mixer.music.load(word_file)
+                mixer.music.load(wo_file)
                 mixer.music.play()
             else:
                 say(wo)
