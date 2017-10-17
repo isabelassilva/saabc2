@@ -11,6 +11,8 @@ import pygame.mixer
 
 from audio_generator import record
 
+import platform
+
 # region :: init()
 
 engine = pyttsx3.init()
@@ -24,6 +26,15 @@ engine.setProperty('voice', 'brazil')
 mixer = pygame.mixer
 
 mixer.init()
+
+so = platform.system()
+
+if so == 'Windows':
+    __PATH__ = 'C:/Users/isabela/Anaconda3/Scripts/mp3/'
+elif so == 'Linux':
+    __PATH__ = './mp3/'
+else:
+    print('Operational System not detected')
 
 # endregion()
 
@@ -74,21 +85,21 @@ notebook.add(aba4, text="         Aba de Palavras       ")
 
 # region :: Aba Inicial
 
-audio_option = ['./mp3/func_inicial_pt.mp3',
-                './mp3/func_letras_pt.mp3',
-                './mp3/func_silabas_pt.mp3',
-                './mp3/func_palavras_pt.mp3',
-                './mp3/func_sair_pt.mp3']
+audio_option = [__PATH__ + 'func_inicial_pt.mp3',
+                __PATH__ + 'func_letras_pt.mp3',
+                __PATH__ + 'func_silabas_pt.mp3',
+                __PATH__ + 'func_palavras_pt.mp3',
+                __PATH__ + 'func_sair_pt.mp3']
 
-audio_option_exiting = ['./mp3/func_inicial_saida_pt.mp3',
-                        './mp3/func_letras_saida_pt.mp3',
-                        './mp3/func_silabas_saida_pt.mp3',
-                        './mp3/func_palavras_saida_pt.mp3']
+audio_option_exiting = [__PATH__ + 'func_inicial_saida_pt.mp3',
+                        __PATH__ + 'func_letras_saida_pt.mp3',
+                        __PATH__ + 'func_silabas_saida_pt.mp3',
+                        __PATH__ + 'func_palavras_saida_pt.mp3']
 
 audio_option_accessing = [' ',
-                          './mp3/func_letras_entrada_pt.mp3',
-                          './mp3/func_silabas_entrada_pt.mp3',
-                          './mp3/func_palavras_entrada_pt.mp3']
+                          __PATH__ + 'func_letras_entrada_pt.mp3',
+                          __PATH__ + 'func_silabas_entrada_pt.mp3',
+                          __PATH__ + 'func_palavras_entrada_pt.mp3']
 
 
 def iterate():
@@ -141,10 +152,10 @@ combobox.current(0)
 
 def letter(char):
     if char in alphabet:
-        mixer.music.load('./mp3/' + char + '_pt.mp3')
+        mixer.music.load(__PATH__ + char + '_pt.mp3')
         mixer.music.play()
     else:
-        mixer.music.load('./mp3/NL_pt.mp3')
+        mixer.music.load(__PATH__ + 'NL_pt.mp3')
         mixer.music.play()
         g = sy_entry.get()
         sy_entry.set(g[:-1])
@@ -171,10 +182,10 @@ def syllable():
     if size == 2:
         if (sy[1] in vowel and (sy[0] in consonant and sy[0] not in ['Q'])) or \
                 (sy[1] in ['M', 'N', 'L', 'R', 'S', 'Z'] and sy[0] in vowel):
-            mixer.music.load('./mp3/' + sy + '_pt.mp3')
+            mixer.music.load(__PATH__ + sy + '_pt.mp3')
             mixer.music.play()
         else:
-            mixer.music.load('./mp3/NS_pt.mp3')
+            mixer.music.load(__PATH__ + 'NS_pt.mp3')
             mixer.music.play()
     elif size == 3:
         if sy[2] in vowel:
@@ -182,16 +193,16 @@ def syllable():
                     (sy[1] == 'L' and sy[0] in ['B', 'C', 'F', 'G', 'P', 'T', 'V']) or \
                     (sy[1] == 'R' and sy[0] in ['B', 'C', 'D', 'F', 'G', 'P', 'T']) or \
                     (sy[1] == 'U' and sy[0] in ['G', 'Q'] and sy[2] in ['A', 'E', 'I', 'O']):
-                    mixer.music.load('./mp3/' + sy + '_pt.mp3')
+                    mixer.music.load(__PATH__ + sy + '_pt.mp3')
                     mixer.music.play()
             else:
-                mixer.music.load('./mp3/NS_pt.mp3')
+                mixer.music.load(__PATH__ + 'NS_pt.mp3')
                 mixer.music.play()
         else:
-            mixer.music.load('./mp3/NS_pt.mp3')
+            mixer.music.load(__PATH__ + 'NS_pt.mp3')
             mixer.music.play()
     else:
-        mixer.music.load('./mp3/NS_pt.mp3')
+        mixer.music.load(__PATH__ + 'NS_pt.mp3')
         mixer.music.play()
     sy_entry.set('')
 
@@ -220,7 +231,7 @@ def word():
     wo = wo_entry.get().lower()
     if wo != '':
         b = is_portuguese_word(wo)
-        wo_file = './mp3/' + wo + '_pt.mp3'
+        wo_file = __PATH__ + wo + '_pt.mp3'
         if b:
             if os.path.isfile(wo_file):
                 mixer.music.load(wo_file)
@@ -231,7 +242,7 @@ def word():
             else:
                 say(wo)
         else:
-            mixer.music.load('./mp3/NW_pt.mp3')
+            mixer.music.load(__PATH__ + 'NW_pt.mp3')
             mixer.music.play()
 
     wo_entry.set('')
@@ -259,7 +270,7 @@ def enter(event):
     aba = notebook.index(notebook.select())
     if aba == 0:
         global file
-        if mixer.music.get_busy() and file == './mp3/welcome.mp3':
+        if mixer.music.get_busy() and file == __PATH__ + 'welcome.mp3':
             mixer.music.stop()
         else:
             select()
@@ -280,7 +291,7 @@ def space(event):
     aba = notebook.index(notebook.select())
     if aba == 0:
         global file
-        if mixer.music.get_busy() and file == './mp3/welcome.mp3':
+        if mixer.music.get_busy() and file == __PATH__ + 'welcome.mp3':
             pass
         else:
             iterate()
@@ -302,7 +313,7 @@ file = ' '
 
 def welcome():
     global file
-    file = './mp3/welcome.mp3'
+    file = __PATH__ + 'welcome.mp3'
     mixer.music.load(file)
     mixer.music.play()
 
