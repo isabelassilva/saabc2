@@ -3,8 +3,6 @@ import tkinter as tk
 
 from tkinter import ttk
 
-import enchant
-
 import os.path
 
 import pyttsx3
