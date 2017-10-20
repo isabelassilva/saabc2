@@ -29,10 +29,15 @@ mixer.init()
 
 so = platform.system()
 
+__PATH__ = ''
+attribute = ''
+
 if so == 'Windows':
     __PATH__ = 'C:/Users/isabela/Anaconda3/Scripts/mp3/'
+    attribute = '-fullscreen'
 elif so == 'Linux':
     __PATH__ = './mp3/'
+    attribute = '-zoomed'
 else:
     print('Operational System not detected')
 
@@ -44,7 +49,7 @@ window = tk.Tk()
 
 window.title("SAABC: Software de Auxílio à Alfabetização Braille para Crianças")
 
-window.attributes('-zoomed', True)
+window.attributes(attribute, True)
 
 window.resizable(0, 0)
 
