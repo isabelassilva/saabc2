@@ -122,7 +122,7 @@ if internet_on():
     for L1 in vowel:
         for L2 in ['M', 'N', 'L', 'R', 'S', 'Z']:
             if not os.path.isfile(__PATH__ + L1 + L2 + '_' + __LANGUAGE__ + '.mp3'):
-                tts = gTTS(text=vowel_[L1] + ' mais ' + L2 + ' é igual a ' + vowel_[L1] + L2.lower(), lang=__LANGUAGE__)
+                tts = gTTS(text=vowel_[L1] + ' mais ' + L2 + '. é igual a .' + vowel_[L1] + L2.lower(), lang=__LANGUAGE__)
                 tts.save(__PATH__ + L1 + L2 + '_' + __LANGUAGE__ + '.mp3')
     # region Syllable: start with Consonant, size 2
         for L2 in ['C', 'L', 'N']:
