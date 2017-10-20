@@ -158,6 +158,12 @@ if internet_on():
         tts = gTTS(text='Não é uma palavra', lang=__LANGUAGE__)
         tts.save(__PATH__ + 'NW_' + __LANGUAGE__ + '.mp3')
 
+    # region Welcome
+    if not os.path.isfile(__PATH__ + 'welcome.mp3'):
+        tts = gTTS(
+            text='Seja Bem Vindo ao SAABC: Software de Auxílio à Alfabetização Braille para Crianças! Use a tecla ESPAÇO para alternar entre as opções. E a tecla ENTER para acessar a opção selecionada.', lang=__LANGUAGE__)
+        tts.save(__PATH__ + 'welcome.mp3')
+
 else:
     print('This procedure requires internet connection')
 
