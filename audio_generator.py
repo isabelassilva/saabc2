@@ -3,6 +3,8 @@ import urllib.request
 from gtts import gTTS
 import os.path
 
+import platform
+
 
 def internet_on():
     try:
@@ -30,7 +32,14 @@ vowel_ = {'A': 'a',
           'O': 'ó',
           'U': 'u'}
 
-__PATH__ = './mp3/'
+so = platform.system()
+
+if so == 'Windows':
+    __PATH__ = 'C:/Users/isabela/Anaconda3/Scripts/mp3/'
+elif so == 'Linux':
+    __PATH__ = './mp3/'
+else:
+    print('Operational System not detected')
 
 braille = {'A': __LETTER__ + ' a. ' + __DOT__ + ' 1.',
            'B': __LETTER__ + ' b. ' + __DOT__ + 's 1 ' + __AND__ + ' 2.',
@@ -171,7 +180,7 @@ else:
 def record(msg, lgg):
     if internet_on():
         texts = gTTS(text=msg, lang=lgg)
-        texts.save('./mp3/' + msg + '_' + lgg + '.mp3')
+        texts.save(__PATH__ + msg + '_' + lgg + '.mp3')
         return True
     else:
         return False
