@@ -224,7 +224,7 @@ def say(msg):
     engine.say(msg)
     engine.runAndWait()
 
-with open("pt-BR_out.dic") as word_file:
+with open("pt-BR_out.dic", encoding='utf-8') as word_file:
     portuguese_words = set(word.strip().lower() for word in word_file)
 
 
