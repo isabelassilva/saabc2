@@ -7,7 +7,7 @@ import os.path
 
 import pyttsx3
 
-import webbrowser
+import playsound
 
 from audio_generator import record
 
@@ -29,7 +29,7 @@ __PATH__ = ''
 attribute = ''
 
 if so == 'Windows':
-    __PATH__ = 'C:/Users/isabela/Anaconda3/Scripts/mp3/'
+    __PATH__ = r'C:/Users/isabela/Anaconda3/Scripts/mp3/'
     attribute = '-fullscreen'
 elif so == 'Linux':
     __PATH__ = './mp3/'
@@ -111,7 +111,7 @@ def iterate():
     new = 0 if new == 5 else new
     combobox.current(new)
     file = audio_option[new]
-    webbrowser.open(file)
+    playsound.playsound(file)
 
 
 def select():
@@ -121,7 +121,7 @@ def select():
         sair()
     else:
         notebook.select(option)
-        webbrowser.open(audio_option_accessing[option])
+        playsound.playsound(audio_option_accessing[option])
         if option == 2:
             sy_entry.set('')
             syl.focus()
@@ -150,9 +150,9 @@ combobox.current(0)
 
 def letter(char):
     if char in alphabet:
-        webbrowser.open(__PATH__ + char + '_pt.mp3')
+        playsound.playsound(__PATH__ + char + '_pt.mp3')
     else:
-        webbrowser.open(__PATH__ + 'NL_pt.mp3')
+        playsound.playsound(__PATH__ + 'NL_pt.mp3')
         g = sy_entry.get()
         sy_entry.set(g[:-1])
 
@@ -177,22 +177,22 @@ def syllable():
     if size == 2:
         if (sy[1] in vowel and (sy[0] in consonant and sy[0] not in ['Q'])) or \
                 (sy[1] in ['M', 'N', 'L', 'R', 'S', 'Z'] and sy[0] in vowel):
-            webbrowser.open(__PATH__ + sy + '_pt.mp3')
+            playsound.playsound(__PATH__ + sy + '_pt.mp3')
         else:
-            webbrowser.open(__PATH__ + 'NS_pt.mp3')
+            playsound.playsound(__PATH__ + 'NS_pt.mp3')
     elif size == 3:
         if sy[2] in vowel:
             if (sy[1] == 'H' and sy[0] in ['C', 'L', 'N']) or \
                     (sy[1] == 'L' and sy[0] in ['B', 'C', 'F', 'G', 'P', 'T', 'V']) or \
                     (sy[1] == 'R' and sy[0] in ['B', 'C', 'D', 'F', 'G', 'P', 'T']) or \
                     (sy[1] == 'U' and sy[0] in ['G', 'Q'] and sy[2] in ['A', 'E', 'I', 'O']):
-                    webbrowser.open(__PATH__ + sy + '_pt.mp3')
+                    playsound.playsound(__PATH__ + sy + '_pt.mp3')
             else:
-                webbrowser.open(__PATH__ + 'NS_pt.mp3')
+                playsound.playsound(__PATH__ + 'NS_pt.mp3')
         else:
-            webbrowser.open(__PATH__ + 'NS_pt.mp3')
+            playsound.playsound(__PATH__ + 'NS_pt.mp3')
     else:
-        webbrowser.open(__PATH__ + 'NS_pt.mp3')
+        playsound.playsound(__PATH__ + 'NS_pt.mp3')
     sy_entry.set('')
 
 sy_entry = tk.StringVar()
@@ -223,14 +223,13 @@ def word():
         wo_file = __PATH__ + wo + '_pt.mp3'
         if b:
             if os.path.isfile(wo_file):
-                webbrowser.open(wo_file)
+                playsound.playsound(wo_file)
             elif record(wo, 'pt'):
-                webbrowser.open(wo_file)
+                playsound.playsound(wo_file)
             else:
                 say(wo)
         else:
-            webbrowser.open(__PATH__ + ''
-                                       'NW_pt.mp3')
+            playsound.playsound(__PATH__ + 'NW_pt.mp3')
     wo_entry.set('')
 
 wo_entry = tk.StringVar()
@@ -264,7 +263,7 @@ def enter(event):
 
 def escape():
     notebook.select(0)
-    webbrowser.open(audio_option_exiting[combobox.current()])
+    playsound.playsound(audio_option_exiting[combobox.current()])
 
 
 # noinspection PyUnusedLocal
