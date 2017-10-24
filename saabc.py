@@ -7,7 +7,7 @@ import os.path
 
 import pyttsx3
 
-import pygame.mixer
+import webbrowser
 
 from audio_generator import record
 
@@ -22,10 +22,6 @@ rate = engine.getProperty('rate')
 engine.setProperty('rate', rate - 50)
 
 engine.setProperty('voice', 'brazil')
-
-mixer = pygame.mixer
-
-mixer.init()
 
 so = platform.system()
 
@@ -50,6 +46,8 @@ window = tk.Tk()
 window.title("SAABC: Software de Auxílio à Alfabetização Braille para Crianças")
 
 window.attributes(attribute, True)
+
+window.attributes("-topmost", True)
 
 window.resizable(0, 0)
 
@@ -112,23 +110,18 @@ def iterate():
     new = current + 1
     new = 0 if new == 5 else new
     combobox.current(new)
-    global file
     file = audio_option[new]
-    mixer.music.load(file)
-    mixer.music.play()
+    webbrowser.open(file)
 
 
 def select():
     option = combobox.current()
 
-    if option == 0:
-        welcome()
-    elif option == 4:
+    if option == 4:
         sair()
     else:
         notebook.select(option)
-        mixer.music.load(audio_option_accessing[option])
-        mixer.music.play()
+        webbrowser.open(audio_option_accessing[option])
         if option == 2:
             sy_entry.set('')
             syl.focus()
@@ -157,14 +150,11 @@ combobox.current(0)
 
 def letter(char):
     if char in alphabet:
-        mixer.music.load(__PATH__ + char + '_pt.mp3')
-        mixer.music.play()
+        webbrowser.open(__PATH__ + char + '_pt.mp3')
     else:
-        mixer.music.load(__PATH__ + 'NL_pt.mp3')
-        mixer.music.play()
+        webbrowser.open(__PATH__ + 'NL_pt.mp3')
         g = sy_entry.get()
         sy_entry.set(g[:-1])
-
 
 # endregion
 
@@ -187,28 +177,22 @@ def syllable():
     if size == 2:
         if (sy[1] in vowel and (sy[0] in consonant and sy[0] not in ['Q'])) or \
                 (sy[1] in ['M', 'N', 'L', 'R', 'S', 'Z'] and sy[0] in vowel):
-            mixer.music.load(__PATH__ + sy + '_pt.mp3')
-            mixer.music.play()
+            webbrowser.open(__PATH__ + sy + '_pt.mp3')
         else:
-            mixer.music.load(__PATH__ + 'NS_pt.mp3')
-            mixer.music.play()
+            webbrowser.open(__PATH__ + 'NS_pt.mp3')
     elif size == 3:
         if sy[2] in vowel:
             if (sy[1] == 'H' and sy[0] in ['C', 'L', 'N']) or \
                     (sy[1] == 'L' and sy[0] in ['B', 'C', 'F', 'G', 'P', 'T', 'V']) or \
                     (sy[1] == 'R' and sy[0] in ['B', 'C', 'D', 'F', 'G', 'P', 'T']) or \
                     (sy[1] == 'U' and sy[0] in ['G', 'Q'] and sy[2] in ['A', 'E', 'I', 'O']):
-                    mixer.music.load(__PATH__ + sy + '_pt.mp3')
-                    mixer.music.play()
+                    webbrowser.open(__PATH__ + sy + '_pt.mp3')
             else:
-                mixer.music.load(__PATH__ + 'NS_pt.mp3')
-                mixer.music.play()
+                webbrowser.open(__PATH__ + 'NS_pt.mp3')
         else:
-            mixer.music.load(__PATH__ + 'NS_pt.mp3')
-            mixer.music.play()
+            webbrowser.open(__PATH__ + 'NS_pt.mp3')
     else:
-        mixer.music.load(__PATH__ + 'NS_pt.mp3')
-        mixer.music.play()
+        webbrowser.open(__PATH__ + 'NS_pt.mp3')
     sy_entry.set('')
 
 sy_entry = tk.StringVar()
@@ -239,17 +223,14 @@ def word():
         wo_file = __PATH__ + wo + '_pt.mp3'
         if b:
             if os.path.isfile(wo_file):
-                mixer.music.load(wo_file)
-                mixer.music.play()
+                webbrowser.open(wo_file)
             elif record(wo, 'pt'):
-                mixer.music.load(wo_file)
-                mixer.music.play()
+                webbrowser.open(wo_file)
             else:
                 say(wo)
         else:
-            mixer.music.load(__PATH__ + 'NW_pt.mp3')
-            mixer.music.play()
-
+            webbrowser.open(__PATH__ + ''
+                                       'NW_pt.mp3')
     wo_entry.set('')
 
 wo_entry = tk.StringVar()
@@ -274,11 +255,7 @@ def key(event):
 def enter(event):
     aba = notebook.index(notebook.select())
     if aba == 0:
-        global file
-        if mixer.music.get_busy() and file == __PATH__ + 'welcome.mp3':
-            mixer.music.stop()
-        else:
-            select()
+        select()
     elif aba == 2:
         syllable()
     elif aba == 3:
@@ -287,19 +264,14 @@ def enter(event):
 
 def escape():
     notebook.select(0)
-    mixer.music.load(audio_option_exiting[combobox.current()])
-    mixer.music.play()
+    webbrowser.open(audio_option_exiting[combobox.current()])
 
 
 # noinspection PyUnusedLocal
 def space(event):
     aba = notebook.index(notebook.select())
     if aba == 0:
-        global file
-        if mixer.music.get_busy() and file == __PATH__ + 'welcome.mp3':
-            pass
-        else:
-            iterate()
+        iterate()
     else:
         escape()
 
@@ -311,20 +283,6 @@ window.bind_all('<Key>', key)
 
 # endregion
 
-# region :: Welcome
-
-file = ' '
-
-
-def welcome():
-    global file
-    file = __PATH__ + 'welcome.mp3'
-    mixer.music.load(file)
-    mixer.music.play()
-
-window.after(100, welcome)
-
-# endregion
 
 # region :: Função Sair
 
