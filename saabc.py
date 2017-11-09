@@ -13,6 +13,8 @@ import pygame.mixer
 
 from audio_generator import record
 
+import vlc
+
 # region :: init()
 
 engine = pyttsx3.init()
@@ -140,11 +142,15 @@ combobox.current(0)
 
 # region Aba de Letras
 
+track = vlc.MediaPlayer('./mp3/A_pt.mp3')
+
 
 def letter(char):
     if char in alphabet:
-        mixer.music.load('./mp3/' + char + '_pt.mp3')
-        mixer.music.play()
+        global track
+        track.stop()
+        track = vlc.MediaPlayer('./mp3/' + char + '_pt.mp3')
+        track.play()
     else:
         mixer.music.load('./mp3/NL_pt.mp3')
         mixer.music.play()
@@ -256,8 +262,10 @@ def enter(event):
     aba = notebook.index(notebook.select())
     if aba == 0:
         global file
-        if mixer.music.get_busy() and file == './mp3/welcome.mp3':
-            mixer.music.stop()
+        global track
+        if track.get_position() < 0.9 and file == './mp3/welcome.mp3':
+            track.stop()
+            track.set_position(0.91)
         else:
             select()
     elif aba == 2:
@@ -300,8 +308,10 @@ file = ' '
 def welcome():
     global file
     file = './mp3/welcome.mp3'
-    mixer.music.load(file)
-    mixer.music.play()
+    global track
+    track.stop()
+    track = vlc.MediaPlayer(file)
+    track.play()
 
 window.after(100, welcome)
 
