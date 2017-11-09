@@ -9,8 +9,6 @@ import os.path
 
 import pyttsx3
 
-import pygame.mixer
-
 from audio_generator import record
 
 import vlc
@@ -24,10 +22,6 @@ rate = engine.getProperty('rate')
 engine.setProperty('rate', rate - 50)
 
 engine.setProperty('voice', 'brazil')
-
-mixer = pygame.mixer
-
-mixer.init()
 
 # endregion()
 
@@ -102,8 +96,10 @@ def iterate():
     combobox.current(new)
     global file
     file = audio_option[new]
-    mixer.music.load(file)
-    mixer.music.play()
+    global track
+    track.stop()
+    track = vlc.MediaPlayer(file)
+    track.play()
 
 
 def select():
@@ -115,8 +111,10 @@ def select():
         sair()
     else:
         notebook.select(option)
-        mixer.music.load(audio_option_accessing[option])
-        mixer.music.play()
+        global track
+        track.stop()
+        track = vlc.MediaPlayer(audio_option_accessing[option])
+        track.play()
         if option == 2:
             sy_entry.set('')
             syl.focus()
@@ -146,14 +144,14 @@ track = vlc.MediaPlayer('./mp3/A_pt.mp3')
 
 
 def letter(char):
+    global track
+    track.stop()
     if char in alphabet:
-        global track
-        track.stop()
         track = vlc.MediaPlayer('./mp3/' + char + '_pt.mp3')
         track.play()
     else:
-        mixer.music.load('./mp3/NL_pt.mp3')
-        mixer.music.play()
+        track = vlc.MediaPlayer('./mp3/NL_pt.mp3')
+        track.play()
         g = sy_entry.get()
         sy_entry.set(g[:-1])
 
@@ -174,33 +172,35 @@ alphabet = consonant + special_consonant + vowel
 
 
 def syllable():
+    global track
+    track.stop()
     sy = sy_entry.get().upper()
     size = len(sy)
     if size == 2:
         if (sy[1] in vowel and (sy[0] in consonant and sy[0] not in ['Q'])) or \
                 (sy[1] in ['M', 'N', 'L', 'R', 'S', 'Z'] and sy[0] in vowel):
-            mixer.music.load('./mp3/' + sy + '_pt.mp3')
-            mixer.music.play()
+            track = vlc.MediaPlayer('./mp3/' + sy + '_pt.mp3')
+            track.play()
         else:
-            mixer.music.load('./mp3/NS_pt.mp3')
-            mixer.music.play()
+            track = vlc.MediaPlayer('./mp3/NS_pt.mp3')
+            track.play()
     elif size == 3:
         if sy[2] in vowel:
             if (sy[1] == 'H' and sy[0] in ['C', 'L', 'N']) or \
                     (sy[1] == 'L' and sy[0] in ['B', 'C', 'F', 'G', 'P', 'T', 'V']) or \
                     (sy[1] == 'R' and sy[0] in ['B', 'C', 'D', 'F', 'G', 'P', 'T']) or \
                     (sy[1] == 'U' and sy[0] in ['G', 'Q'] and sy[2] in ['A', 'E', 'I', 'O']):
-                    mixer.music.load('./mp3/' + sy + '_pt.mp3')
-                    mixer.music.play()
+                    track = vlc.MediaPlayer('./mp3/' + sy + '_pt.mp3')
+                    track.play()
             else:
-                mixer.music.load('./mp3/NS_pt.mp3')
-                mixer.music.play()
+                track = vlc.MediaPlayer('./mp3/NS_pt.mp3')
+                track.play()
         else:
-            mixer.music.load('./mp3/NS_pt.mp3')
-            mixer.music.play()
+            track = vlc.MediaPlayer('./mp3/NS_pt.mp3')
+            track.play()
     else:
-        mixer.music.load('./mp3/NS_pt.mp3')
-        mixer.music.play()
+        track = vlc.MediaPlayer('./mp3/NS_pt.mp3')
+        track.play()
     sy_entry.set('')
 
 sy_entry = tk.StringVar()
@@ -224,18 +224,20 @@ def word():
     if wo != '':
         b = dictionary.check(wo)
         word_file = './mp3/' + wo + '_pt.mp3'
+        global track
+        track.stop()
         if b:
             if os.path.isfile(word_file):
-                mixer.music.load(word_file)
-                mixer.music.play()
+                track = vlc.MediaPlayer(word_file)
+                track.play()
             elif record(wo, 'pt'):
-                mixer.music.load(word_file)
-                mixer.music.play()
+                track = vlc.MediaPlayer(word_file)
+                track.play()
             else:
                 say(wo)
         else:
-            mixer.music.load('./mp3/NW_pt.mp3')
-            mixer.music.play()
+            track = vlc.MediaPlayer('./mp3/NW_pt.mp3')
+            track.play()
 
     wo_entry.set('')
 
@@ -261,13 +263,7 @@ def key(event):
 def enter(event):
     aba = notebook.index(notebook.select())
     if aba == 0:
-        global file
-        global track
-        if track.get_position() < 0.9 and file == './mp3/welcome.mp3':
-            track.stop()
-            track.set_position(0.91)
-        else:
-            select()
+        select()
     elif aba == 2:
         syllable()
     elif aba == 3:
@@ -275,20 +271,18 @@ def enter(event):
 
 
 def escape():
+    global track
+    track.stop()
     notebook.select(0)
-    mixer.music.load(audio_option_exiting[combobox.current()])
-    mixer.music.play()
+    track = vlc.MediaPlayer(audio_option_exiting[combobox.current()])
+    track.play()
 
 
 # noinspection PyUnusedLocal
 def space(event):
     aba = notebook.index(notebook.select())
     if aba == 0:
-        global file
-        if mixer.music.get_busy() and file == './mp3/welcome.mp3':
-            pass
-        else:
-            iterate()
+        iterate()
     else:
         escape()
 
