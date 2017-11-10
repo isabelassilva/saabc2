@@ -143,7 +143,7 @@ combobox.current(0)
 track = vlc.MediaPlayer('./mp3/A_pt.mp3')
 
 
-def letter(char):
+def letter1(char):
     global track
     track.stop()
     if char in alphabet:
@@ -152,8 +152,6 @@ def letter(char):
     else:
         track = vlc.MediaPlayer('./mp3/NL_pt.mp3')
         track.play()
-        g = sy_entry.get()
-        sy_entry.set(g[:-1])
 
 
 # endregion
@@ -169,6 +167,19 @@ special_consonant = ['K', 'W', 'Y']
 vowel = ['A', 'E', 'I', 'O', 'U']
 
 alphabet = consonant + special_consonant + vowel
+
+
+def letter2(char):
+    global track
+    track.stop()
+    if char in alphabet:
+        track = vlc.MediaPlayer('./mp3/letra_' + char + '_pt.mp3')
+        track.play()
+    else:
+        track = vlc.MediaPlayer('./mp3/NL_pt.mp3')
+        track.play()
+        g = sy_entry.get()
+        sy_entry.set(g[:-1])
 
 
 def syllable():
@@ -210,6 +221,19 @@ syl.pack(expand=1)
 # endregion
 
 # region Aba de Palavras
+
+
+def letter3(char):
+    global track
+    track.stop()
+    if char in alphabet:
+        track = vlc.MediaPlayer('./mp3/letra_' + char + '_pt.mp3')
+        track.play()
+    else:
+        track = vlc.MediaPlayer('./mp3/NL_pt.mp3')
+        track.play()
+        g = wo_entry.get()
+        wo_entry.set(g[:-1])
 
 
 def say(msg):
@@ -255,8 +279,12 @@ def key(event):
 
     aba = notebook.index(notebook.select())
 
-    if aba == 1 or aba == 2:
-        letter(char)
+    if aba == 1:
+        letter1(char)
+    elif aba == 2:
+        letter2(char)
+    elif aba == 3:
+        letter3(char)
 
 
 # noinspection PyUnusedLocal
